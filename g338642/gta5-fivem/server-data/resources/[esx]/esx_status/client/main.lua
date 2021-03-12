@@ -1,12 +1,5 @@
-ESX = nil
-local Status, isPaused = {}, false
-
-Citizen.CreateThread(function()
-	while ESX == nil do
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-		Citizen.Wait(0)
-	end
-end)
+local Status = {}
+local isPaused = false
 
 function GetStatusData(minimal)
 	local status = {}
@@ -38,42 +31,6 @@ AddEventHandler('esx_status:registerStatus', function(name, default, color, visi
 	table.insert(Status, status)
 end)
 
-AddEventHandler('esx_status:unregisterStatus', function(name)
-	for k,v in ipairs(Status) do
-		if v.name == name then
-			table.remove(Status, k)
-			break
-		end
-	end
-end)
--- modificado 4 tevi
--- RegisterNetEvent('esx_status:load')
--- AddEventHandler('esx_status:load', function(status)
--- 	for i=1, #Status, 1 do
--- 		for j=1, #status, 1 do
--- 			if Status[i].name == status[j].name then
--- 				Status[i].set(status[j].val)
--- 			end
--- 		end
--- 	end
-
--- 	Citizen.CreateThread(function()
--- 		while true do
--- 			for i=1, #Status, 1 do
--- 				Status[i].onTick()
--- 			end
-
--- 			SendNUIMessage({
--- 				update = true,
--- 				status = GetStatusData()
--- 			})
-
--- 			TriggerEvent('esx_status:onTick', GetStatusData(true))
--- 			Citizen.Wait(Config.TickTime)
--- 		end
--- 	end)
--- end)
--- modificado 4 tevi -------------
 RegisterNetEvent('esx_status:load')
 AddEventHandler('esx_status:load', function(status)
   for i=1, #Status, 1 do
@@ -100,7 +57,6 @@ AddEventHandler('esx_status:load', function(status)
   	end
   end)
 end)
-
 
 RegisterNetEvent('esx_status:set')
 AddEventHandler('esx_status:set', function(name, val)

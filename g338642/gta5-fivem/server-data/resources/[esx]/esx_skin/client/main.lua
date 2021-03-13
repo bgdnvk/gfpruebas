@@ -9,6 +9,7 @@ Citizen.CreateThread(function()
 	end
 end)
 
+-- func for saving data from the user
 function OpenMenu(submitCb, cancelCb, restrict)
 	local playerPed = PlayerPedId()
 

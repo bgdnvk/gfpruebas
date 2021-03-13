@@ -261,12 +261,12 @@ AddEventHandler('playerSpawned', function()
 		while not playerLoaded do
 			Citizen.Wait(100)
 		end
-
+		----
 		if firstSpawn then
 			ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
 				if skin == nil then
 					-- mod for nico
-					--TriggerEvent('skinchanger:loadSkin', {sex = 0}, OpenSaveableMenu)
+					-- TriggerEvent('skinchanger:loadSkin', {sex = 0}, OpenSaveableMenu)
 					TriggerEvent('nicoo_charcreator:CharCreator')
 				else
 					TriggerEvent('skinchanger:loadSkin', skin)

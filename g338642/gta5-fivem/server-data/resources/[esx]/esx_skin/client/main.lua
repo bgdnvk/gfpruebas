@@ -72,12 +72,14 @@ function OpenMenu(submitCb, cancelCb, restrict)
 			table.insert(elements, data)
 		end
 
-		CreateSkinCam()
-		zoomOffset = _components[1].zoomOffset
-		camOffset = _components[1].camOffset
+		-- SKIN CAM 
+
+		-- CreateSkinCam()
+		-- zoomOffset = _components[1].zoomOffset
+		-- camOffset = _components[1].camOffset
 
 		-- ####### menu char creator --
-		
+
 		-- ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'skin', {
 		-- 	title    = _U('skin_menu'),
 		-- 	align    = 'top-left',
@@ -250,7 +252,7 @@ function OpenSaveableMenu(submitCb, cancelCb, restrict)
 
 		TriggerEvent('skinchanger:getSkin', function(skin)
 			-- SAVING SKIN
-			TriggerServerEvent('esx_skin:save', skin)
+			--TriggerServerEvent('esx_skin:save', skin)
 
 			if submitCb ~= nil then
 				submitCb(data, menu)

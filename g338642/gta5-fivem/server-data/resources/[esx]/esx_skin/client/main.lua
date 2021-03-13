@@ -76,62 +76,64 @@ function OpenMenu(submitCb, cancelCb, restrict)
 		zoomOffset = _components[1].zoomOffset
 		camOffset = _components[1].camOffset
 
-		ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'skin', {
-			title    = _U('skin_menu'),
-			align    = 'top-left',
-			elements = elements
-		}, function(data, menu)
-			TriggerEvent('skinchanger:getSkin', function(skin)
-				lastSkin = skin
-			end)
+		-- ####### menu char creator --
+		
+		-- ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'skin', {
+		-- 	title    = _U('skin_menu'),
+		-- 	align    = 'top-left',
+		-- 	elements = elements
+		-- }, function(data, menu)
+		-- 	TriggerEvent('skinchanger:getSkin', function(skin)
+		-- 		lastSkin = skin
+		-- 	end)
 
-			submitCb(data, menu)
-			DeleteSkinCam()
-		end, function(data, menu)
-			menu.close()
-			DeleteSkinCam()
-			TriggerEvent('skinchanger:loadSkin', lastSkin)
+		-- 	submitCb(data, menu)
+		-- 	DeleteSkinCam()
+		-- end, function(data, menu)
+		-- 	menu.close()
+		-- 	DeleteSkinCam()
+		-- 	TriggerEvent('skinchanger:loadSkin', lastSkin)
 
-			if cancelCb ~= nil then
-				cancelCb(data, menu)
-			end
-		end, function(data, menu)
-			local skin, components, maxVals
+		-- 	if cancelCb ~= nil then
+		-- 		cancelCb(data, menu)
+		-- 	end
+		-- end, function(data, menu)
+		-- 	local skin, components, maxVals
 
-			TriggerEvent('skinchanger:getSkin', function(getSkin)
-				skin = getSkin
-			end)
+		-- 	TriggerEvent('skinchanger:getSkin', function(getSkin)
+		-- 		skin = getSkin
+		-- 	end)
 
-			zoomOffset = data.current.zoomOffset
-			camOffset = data.current.camOffset
+		-- 	zoomOffset = data.current.zoomOffset
+		-- 	camOffset = data.current.camOffset
 
-			if skin[data.current.name] ~= data.current.value then
-				-- Change skin element
-				TriggerEvent('skinchanger:change', data.current.name, data.current.value)
+		-- 	if skin[data.current.name] ~= data.current.value then
+		-- 		-- Change skin element
+		-- 		TriggerEvent('skinchanger:change', data.current.name, data.current.value)
 
-				-- Update max values
-				TriggerEvent('skinchanger:getData', function(comp, max)
-					components, maxVals = comp, max
-				end)
+		-- 		-- Update max values
+		-- 		TriggerEvent('skinchanger:getData', function(comp, max)
+		-- 			components, maxVals = comp, max
+		-- 		end)
 
-				local newData = {}
+		-- 		local newData = {}
 
-				for i=1, #elements, 1 do
-					newData = {}
-					newData.max = maxVals[elements[i].name]
+		-- 		for i=1, #elements, 1 do
+		-- 			newData = {}
+		-- 			newData.max = maxVals[elements[i].name]
 
-					if elements[i].textureof ~= nil and data.current.name == elements[i].textureof then
-						newData.value = 0
-					end
+		-- 			if elements[i].textureof ~= nil and data.current.name == elements[i].textureof then
+		-- 				newData.value = 0
+		-- 			end
 
-					menu.update({name = elements[i].name}, newData)
-				end
+		-- 			menu.update({name = elements[i].name}, newData)
+		-- 		end
 
-				menu.refresh()
-			end
-		end, function(data, menu)
-			DeleteSkinCam()
-		end)
+		-- 		menu.refresh()
+		-- 	end
+		-- end, function(data, menu)
+		-- 	DeleteSkinCam()
+		-- end)
 	end)
 end
 
@@ -247,6 +249,7 @@ function OpenSaveableMenu(submitCb, cancelCb, restrict)
 		DeleteSkinCam()
 
 		TriggerEvent('skinchanger:getSkin', function(skin)
+			-- SAVING SKIN
 			TriggerServerEvent('esx_skin:save', skin)
 
 			if submitCb ~= nil then
